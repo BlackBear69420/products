@@ -27,6 +27,7 @@ const formSchema = z.object({
     .refine((files) => files.length > 0, "Required"),
     description:z.string().min(1).max(200),
     price:z.string().min(1),
+    url:z.string().min(1),
 });
 
 
@@ -57,7 +58,8 @@ export default function Home() {
       title: "",
       file:undefined,
       description:"",
-      price:""
+      price:"",
+      url:"",
     },
   })
 const fileRef=form.register("file");
@@ -82,7 +84,8 @@ const fileRef=form.register("file");
       fileId:storageId,
       type:types[values.file[0].type],
       description:values.description,
-      price:values.price
+      price:values.price,
+      url:values.url
     })
 
     form.reset()
@@ -166,6 +169,19 @@ const fileRef=form.register("file");
               <FormLabel>Price</FormLabel>
               <FormControl>
                 <Input type="number" placeholder="ex :100" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="url"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>URL</FormLabel>
+              <FormControl>
+                <Input placeholder="https://example.com" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
