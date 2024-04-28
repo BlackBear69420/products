@@ -27,7 +27,7 @@ const formSchema = z.object({
     .refine((files) => files.length > 0, "Required"),
     description:z.string().min(1).max(200),
     price:z.string().min(1),
-    url:z.string().min(1),
+    url2:z.string().min(1),
 });
 
 
@@ -59,7 +59,7 @@ export default function Home() {
       file:undefined,
       description:"",
       price:"",
-      url:"",
+      url2:"",
     },
   })
 const fileRef=form.register("file");
@@ -85,7 +85,7 @@ const fileRef=form.register("file");
       type:types[values.file[0].type],
       description:values.description,
       price:values.price,
-      url:values.url
+      url2:values.url2
     })
 
     form.reset()
@@ -176,7 +176,7 @@ const fileRef=form.register("file");
         />
         <FormField
           control={form.control}
-          name="url"
+          name="url2"
           render={({ field }) => (
             <FormItem>
               <FormLabel>URL</FormLabel>
@@ -211,32 +211,33 @@ const fileRef=form.register("file");
 </Dialog>
       <div className=" grid md:grid-cols-2 md:gap-8 lg:grid-cols-4 gap-5 my-8 md:w-full">
     
-  {Files?.map((file, index) => (
-        <Link key={index} href='/'>
-          <div className=" w-72 rounded shadow-lg mx-auto border border-palette-lighter">
-            <div className="border-b-2 border-palette-lighter flex justify-center items-center py-5">
-            <img
-                width={250}
-                height={250}
-                src={file.url || ''}
-                alt='product image'
-                className="transform duration-500 ease-in-out hover:scale-110"
-              />
-            </div>
-            <div className="">
-              <div className="font-primary text-palette-primary text-2xl pt-4 px-4 font-semibold">
-                {file.title}
-              </div>
-              <div className="text-md text-gray-600 p-4 font-primary font-light">
-                {file.description}
-              </div>
-              <div className="text-palette-dark font-primary font-medium text-base mb-4 pl-8 pr-4 pb-1 pt-2 bg-palette-lighter rounded-tl-sm triangle">
-                {file.price}
-              </div>
-            </div>
-          </div>
-        </Link>
-      ))}
+      {Files?.map((file, index) => (
+  <Link key={index} href={file.url2 || '/'}>
+    <div className="w-72 rounded shadow-lg mx-auto border border-palette-lighter overflow-hidden">
+      <div className="border-b-2 border-palette-lighter flex justify-center items-center py-5">
+        <img
+          width={250}
+          height={250}
+          src={file.url || ''}
+          alt='product image'
+          className="transform duration-500 ease-in-out hover:scale-110"
+        />
+      </div>
+      <div className="">
+        <div className="font-primary text-palette-primary text-2xl pt-4 px-4 font-semibold">
+          {file.title}
+        </div>
+        <div className="text-md text-gray-600 p-4 font-primary font-light overflow-hidden">
+          {file.description.split(' ').slice(0, 4).join(' ')}{file.description.split(' ').length > 4 ? '...' : ''}
+        </div>
+        <div className="text-palette-dark font-primary font-medium text-base mb-4 pl-8 pr-4 pb-1 pt-2 bg-palette-lighter rounded-tl-sm triangle">
+          {file.price}
+        </div>
+      </div>
+    </div>
+  </Link>
+))}
+
       </div>
     </main>
   );

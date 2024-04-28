@@ -13,7 +13,7 @@ export const createFile=mutation({
     type:v.literal("image"),
     description:v.string(),
     price:v.string(),
-    url:v.string(),
+    url2:v.string(),
 
   },
   async handler(ctx,args){
@@ -23,7 +23,7 @@ export const createFile=mutation({
       type:args.type,
       description:args.description,
       price:args.price,
-      url:args.url
+      url2:args.url2
     });
   }
 })

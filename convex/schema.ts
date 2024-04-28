@@ -8,6 +8,6 @@ export default defineSchema({
         type:v.literal("image"),
         description:v.string(),
         price:v.string(),
-        url:v.string(),
+        url2:v.string(),
     })
 })
